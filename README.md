@@ -20,11 +20,14 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
   - O sistema deve registrar os dados em tempo real para posterior análise de sono e estresse.
   - O sistema deve gerar alertas em caso de leituras anormais (ex: batimentos muito baixos/altos ou baixa oxigenação).
 
-- **RF03 - Detecção de quedas**
+- **RF03 - Botão de Pânico**
+  - O sistema deve reconhecer quando o usuário apertar um botão e enviar um alerta de emergência.
+
+- **RF04 - Detecção de quedas**
   - O sistema deve utilizar o sensor MPU6050 para detectar quedas com base na aceleração e rotação.
   - O sistema deve enviar um alerta automático caso uma queda seja detectada.
 
-- **RF04 - Conectividade e envio de alertas**
+- **RF05 - Conectividade e envio de alertas**
   - O sistema deve utilizar Wi-Fi para enviar notificações ou dados.
 
 ---
@@ -49,5 +52,12 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
   - O código deve ser modular para permitir manutenção e expansão futura.
   - Deve ser possível incluir outros sensores ou funcionalidades com facilidade.
 
----
+## 🛠️ Lista de Materiais
 
+| Componente                | Quantidade | Descrição                                                | Finalidade                                    |
+|---------------------------|------------|------------------------------------------------------------|-----------------------------------------------|
+| Raspberry Pi Pico W       | 1          | Microcontrolador com Wi-Fi integrado                      | Unidade principal de processamento e controle |
+| Módulo GPS (NEO-6M)   | 1          | Módulo GPS com comunicação via UART                      | Captura de coordenadas geográficas            |
+| Sensor MAX30100           | 1          | Sensor óptico para batimentos cardíacos e oxigenação     | Monitoramento da saúde                        |
+| Sensor MPU6050            | 1          | Acelerômetro + Giroscópio (I2C)                          | Detecção de quedas através do movimento       |                    |
+| Botão          | 1 ou mais  | Push button simples                                      | Entrada manual para testes                    |
