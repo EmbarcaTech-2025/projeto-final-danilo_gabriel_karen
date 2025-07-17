@@ -61,3 +61,4 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
 | Sensor MAX30100           | 1          | Sensor óptico para batimentos cardíacos e oxigenação     | Monitoramento da saúde                        |
 | Sensor MPU6050            | 1          | Acelerômetro + Giroscópio (I2C)                          | Detecção de quedas através do movimento       |                    |
 | Botão          | 1 ou mais  | Push button simples                                      | Entrada manual para testes                    |
+| Buzzer          | 1   | Buzzer piezoelétrico                                      | Alarme sonoro                   |
