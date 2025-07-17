@@ -4,7 +4,7 @@
 
 Pessoas idosas, especialmente aquelas que vivem sozinhas ou possuem problemas de saúde, estão sujeitas a situações de risco como quedas, desorientação espacial e alterações fisiológicas graves (como baixa oxigenação no sangue ou arritmias). Muitas dessas situações não são percebidas a tempo por familiares ou cuidadores, podendo resultar em agravamentos de saúde ou até fatalidades.  
 
-O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na Raspberry Pi Pico W, que monitore a localização, os sinais vitais e a movimentação de idosos, gerando alertas automáticos em situações de risco.
+O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na Raspberry Pi Pico W, para uso domiciliar, que monitore a localização, os sinais vitais e a movimentação de idosos, gerando alertas automáticos em situações de risco.
 
 ---
 
