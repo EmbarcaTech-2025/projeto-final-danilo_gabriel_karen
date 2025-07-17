@@ -51,6 +51,12 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
 - **RNF05 - Modularidade e escalabilidade**
   - O código deve ser modular para permitir manutenção e expansão futura.
   - Deve ser possível incluir outros sensores ou funcionalidades com facilidade.
+ 
+- **RNF06 - Segurança elétrica**
+  - O sistema deve garantir isolamento elétrico de pacientes.
+  - Deve apresentar corrente de fuga < 10 µA, conforme a IEC 60601-1
+
+
 
 ## 🛠️ Lista de Materiais
 
