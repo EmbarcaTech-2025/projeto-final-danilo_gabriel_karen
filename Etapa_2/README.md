@@ -5,7 +5,7 @@
 O diagrama de hardware ilustra a disposição física e as conexões elétricas entre os componentes do Monitor de Sinais Vitais.
 O microcontrolador central é o Raspberry Pi Pico W, responsável por gerenciar os sensores, processar dados e realizar a comunicação. Os principais módulos e conexões são:
 
-- **GPS GY-NEO-6MV2* — Fornece dados de localização via interface UART (pinos GP0 e GP1).
+- **GPS GY-NEO-6MV2** — Fornece dados de localização via interface UART (pinos GP0 e GP1).
 
 - **Botão A** — Entrada digital para funções de controle do sistema. (pino GP 5)
 
