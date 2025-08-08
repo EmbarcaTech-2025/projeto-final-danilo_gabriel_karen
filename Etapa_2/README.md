@@ -1,8 +1,25 @@
 # Etapa 2 – Proposta de Arquitetura do Sistema
 
 ## 1) Diagrama de Hardware
-Representa a disposição física e as conexões entre os componentes do sistema (Pico W, sensores, GPS, OLED, buzzer e alimentação).
 
+O diagrama de hardware ilustra a disposição física e as conexões elétricas entre os componentes do Monitor de Sinais Vitais.
+O microcontrolador central é o Raspberry Pi Pico W, responsável por gerenciar os sensores, processar dados e realizar a comunicação. Os principais módulos e conexões são:
+
+GPS GY-NEO-6MV2 — Fornece dados de localização via interface UART (pinos GP0 e GP1).
+
+Botão A — Entrada digital para funções de controle do sistema.
+
+Buzzer — Saída sonora para alertas, ligado ao pino GP9.
+
+Display OLED SSD1306 — Interface I2C para exibir informações ao usuário (pinos GP14 e GP15).
+
+Sensor MPU6050 — Acelerômetro e giroscópio para detecção de movimentos e inclinação (I2C nos pinos GP26 e GP27).
+
+Módulo MAX30100 — Sensor óptico para leitura de frequência cardíaca e oximetria de pulso (I2C nos pinos GP26 e GP27).
+
+Módulo AD8232 — Circuito de ECG para monitoramento de sinais cardíacos, conectado aos pinos analógicos e digitais específicos para leitura dos sinais de eletrocardiograma.
+
+Conexões de Eletrodos (RA, LA, RL) — Eletrodos posicionados no corpo para captação do sinal cardíaco.
 ![Diagrama de Hardware](DiagramaHardware_MonitorSinaisVitais.png)
 
 ---
