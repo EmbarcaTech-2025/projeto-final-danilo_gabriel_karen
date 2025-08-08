@@ -67,7 +67,8 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
 | Botão          | 1 ou mais  | Push button simples                                      | Entrada manual para testes                    |
 | Buzzer          | 1   | Buzzer piezoelétrico                                      | Alarme sonoro                   |
 | Display OLED SSD1306          | 1   | Exibir dados e alarmes                                      | Interface intuitiva para o usuário                  |
-
+| Módulo ECG (AD8232)      | 1   | Processar os sinais de ECG captados pelos eletrodos                                      | Analisar o estado de saúde cardíaca             |
+| Eletrodos com cabos     | 3   | Captar os sinais cardíacos de sístole e diástole                                      | Captação dos sinais elétricos do coração             |
 
 ## 4. Proposta de Arquitetura do Sistema
 
@@ -85,5 +86,4 @@ A proposta de arquitetura do sistema inclui três visões principais:
    ![Fluxograma de Software](imagens/Fluxograma_Software.jpg)
 
 
-Cada um desses diagramas está detalhado nas seções seguintes.
 
