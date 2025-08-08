@@ -38,10 +38,9 @@ Mostra os módulos lógicos e como eles interagem:
 
 ## 3) Fluxograma do Software
 Fluxo das operações do firmware, desde a inicialização até o envio de dados/alertas:
-1. Boot → inicialização de hardware e autotestes.  
-2. Conexão Wi‑Fi (TLS) e sincronização de tempo.  
-3. Loop: coleta (ECG/PPG/IMU/GPS) → pré-processamento → métricas/eventos.  
-4. Empacotamento e envio (MQTT/HTTP), registro local, alarmes e interface.  
-5. Sleep/duty‑cycle para economia de energia.
-
+1. **Inicialização**: configura GPIO/I²C/UART/ADC e autotestes.  
+2. **Conectividade**: Wi‑Fi (TLS) e sincronização de tempo.  
+3. **Loop**: coleta (ECG/PPG/IMU/GPS) → pré‑processamento → métricas/eventos.  
+4. **Ações**: exibe no OLED, aciona buzzer, empacota e envia (MQTT/HTTP).  
+5. **Economia de energia**: sleep/duty‑cycle e retomada do loop.
 ![Fluxograma de Software](Fluxograma_Software.jpg)
