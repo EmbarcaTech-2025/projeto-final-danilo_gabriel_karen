@@ -76,14 +76,14 @@ A proposta de arquitetura do sistema inclui três visões principais:
 
 1. **Diagrama de Hardware** — Representa a disposição física e conexões entre os componentes do sistema.
    
-   ![Diagrama de Hardware](imagens/DiagramaHardware_MonitorSinaisVitais.png)
+   ![Diagrama de Hardware](Etapa 2/DiagramaHardware_MonitorSinaisVitais.png)
 
 2. **Blocos Funcionais** — Mostra os módulos lógicos e como eles interagem para realizar as funções do sistema.
 
-    ![Diagrama de Blocos Funcionais](imagens/blocos_funcionais.png)
+    ![Diagrama de Blocos Funcionais](Etapa 2/blocos_funcionais.png)
 
 3. **Fluxograma do Software** — Representa o fluxo das operações realizadas pelo firmware, desde a inicialização até o envio de dados e alertas.
-   ![Fluxograma de Software](imagens/Fluxograma_Software.jpg)
+   ![Fluxograma de Software](Etapa 2/Fluxograma_Software.jpg)
 
 
 
