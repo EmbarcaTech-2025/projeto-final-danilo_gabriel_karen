@@ -79,6 +79,8 @@ A proposta de arquitetura do sistema inclui três visões principais:
 
 2. **Blocos Funcionais** — Mostra os módulos lógicos e como eles interagem para realizar as funções do sistema.
 
+    ![Diagrama de Blocos Funcionais](imagens/blocos_funcionais.png)
+
 3. **Fluxograma do Software** — Representa o fluxo das operações realizadas pelo firmware, desde a inicialização até o envio de dados e alertas.
 
 Cada um desses diagramas está detalhado nas seções seguintes.
