@@ -68,3 +68,18 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
 | Buzzer          | 1   | Buzzer piezoelétrico                                      | Alarme sonoro                   |
 | Display OLED SSD1306          | 1   | Exibir dados e alarmes                                      | Interface intuitiva para o usuário                  |
 
+
+## 4. Proposta de Arquitetura do Sistema
+
+A proposta de arquitetura do sistema inclui três visões principais:
+
+1. **Diagrama de Hardware** — Representa a disposição física e conexões entre os componentes do sistema.
+   
+   ![Diagrama de Hardware](imagens/DiagramaHardware_MonitorSinaisVitais.png)
+
+2. **Blocos Funcionais** — Mostra os módulos lógicos e como eles interagem para realizar as funções do sistema.
+
+3. **Fluxograma do Software** — Representa o fluxo das operações realizadas pelo firmware, desde a inicialização até o envio de dados e alertas.
+
+Cada um desses diagramas está detalhado nas seções seguintes.
+
