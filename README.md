@@ -17,7 +17,7 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
 
 - **RF02 - Medição de sinais vitais**
   - O sistema deve medir a frequência cardíaca e a saturação de oxigênio (SpO₂) usando o sensor MAX30100.
-  - O sistema deve mostrar o sinal de ECG em tempo real, em um aplicativo para celular.
+  - O sistema deve mostrar o sinal de ECG em tempo real, em uma API na nuvem.
   - O sistema deve registrar os dados em tempo real para posterior análise de sono e estresse.
   - O sistema deve gerar alertas em caso de leituras anormais (ex: batimentos muito baixos/altos ou baixa oxigenação).
 
