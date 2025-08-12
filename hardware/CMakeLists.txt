@@ -63,6 +63,7 @@ target_include_directories(hardware PRIVATE
 # Add any user requested libraries
 target_link_libraries(hardware
         FreeRTOS-Kernel-Heap4
+        hardware_uart
         )
 
 pico_add_extra_outputs(hardware)
