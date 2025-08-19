@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { GpsService } from '../gps';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-visualizacao-gps',
@@ -11,13 +12,19 @@ import { GpsService } from '../gps';
 })
 export class VisualizacaoGps implements OnInit, AfterViewInit {
 
-  private map!: any; // Use 'any' para evitar erros de tipagem
-  markers: any[] = [
-    // Mantenha os dados do marcador
-  ];
+  private map!: any; // Leaflet map instance
+  private L!: any;   // Leaflet namespace (dynamic import)
+
+  // Estado de desenho da área segura
+  readonly selectedPoints = signal<{ lat: number; lng: number }[]>([]);
+  private drawnMarkers: any[] = [];
+  private previewLine: any | null = null;
+  private safePolygon: any | null = null;
+  readonly saving = signal(false);
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private gpsService: GpsService
   ) { }
 
   ngOnInit(): void {
@@ -26,8 +33,8 @@ export class VisualizacaoGps implements OnInit, AfterViewInit {
 
   async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      const L = await import('leaflet');
-      this.initMap(L);
+      this.L = await import('leaflet');
+      this.initMap(this.L);
     }
   }
 
@@ -43,22 +50,82 @@ export class VisualizacaoGps implements OnInit, AfterViewInit {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
   
-    this.map.on('load', () => {
-      this.centerMap(L);
-    });
+    // Habilita seleção de pontos ao clicar no mapa
+    this.map.on('click', (e: any) => this.handleMapClick(e));
   }
   
+  private handleMapClick(e: any): void {
+    if (!this.map || !this.L) { return; }
+    if (this.selectedPoints().length >= 4) { return; }
 
-  private centerMap(L: any) {
-    if (this.markers.length > 0) {
-      if (this.markers.length === 1) {
-        this.map.setView(this.markers[0].getLatLng(), 13);
-        this.markers[0].addTo(this.map);
-      } else {
-        const bounds = L.latLngBounds(this.markers.map(marker => marker.getLatLng()));
-        this.map.fitBounds(bounds);
-        this.markers.forEach(marker => marker.addTo(this.map));
-      }
+    const latlng = e.latlng as { lat: number; lng: number };
+    this.selectedPoints.update(points => [...points, { lat: latlng.lat, lng: latlng.lng }]);
+
+    const marker = this.L.marker(latlng, { keyboard: false, interactive: false });
+    marker.addTo(this.map);
+    this.drawnMarkers.push(marker);
+
+    this.updatePreview();
+  }
+
+  private updatePreview(): void {
+    // Limpa pré-visualizações anteriores
+    if (this.previewLine) {
+      this.map.removeLayer(this.previewLine);
+      this.previewLine = null;
+    }
+    if (this.safePolygon) {
+      this.map.removeLayer(this.safePolygon);
+      this.safePolygon = null;
+    }
+
+    if (this.selectedPoints().length >= 2 && this.selectedPoints().length < 4) {
+      const latlngs = this.selectedPoints().map(p => [p.lat, p.lng]);
+      this.previewLine = this.L.polyline(latlngs, { color: '#000', weight: 2, opacity: 0.7 });
+      this.previewLine.addTo(this.map);
+    }
+
+    if (this.selectedPoints().length === 4) {
+      const latlngs = this.selectedPoints().map(p => [p.lat, p.lng]);
+      this.safePolygon = this.L.polygon(latlngs, {
+        color: '#000',
+        weight: 2,
+        opacity: 0.9,
+        fillColor: '#000',
+        fillOpacity: 0.08,
+      });
+      this.safePolygon.addTo(this.map);
+    }
+  }
+
+  undoLastPoint(): void {
+    if (this.selectedPoints().length === 0) { return; }
+    this.selectedPoints.update(points => points.slice(0, -1));
+    const lastMarker = this.drawnMarkers.pop();
+    if (lastMarker) { this.map.removeLayer(lastMarker); }
+    this.updatePreview();
+  }
+
+  clearPoints(): void {
+    this.selectedPoints.set([]);
+    this.drawnMarkers.forEach(m => this.map.removeLayer(m));
+    this.drawnMarkers = [];
+    if (this.previewLine) { this.map.removeLayer(this.previewLine); this.previewLine = null; }
+    if (this.safePolygon) { this.map.removeLayer(this.safePolygon); this.safePolygon = null; }
+  }
+
+  async saveArea(): Promise<void> {
+    if (this.selectedPoints().length !== 4 || this.saving()) { return; }
+    this.saving.set(true);
+    try {
+      await firstValueFrom(this.gpsService.saveSafeArea(this.selectedPoints()))
+      // Opcional: feedback simples
+      alert('Área segura salva com sucesso.');
+    } catch (err) {
+      console.error(err);
+      alert('Falha ao salvar a área segura.');
+    } finally {
+      this.saving.set(false);
     }
   }
 }

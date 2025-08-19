@@ -13,4 +13,9 @@ export class GpsService {
     // Exemplo de chamada para uma API
     return this.http.get('https://api.exemplo.com/gps');
   }
+
+  saveSafeArea(points: { lat: number; lng: number }[]): Observable<any> {
+    // Substitua pela URL real do seu backend
+    return this.http.post('/api/areas-seguras', { pontos: points });
+  }
 }
