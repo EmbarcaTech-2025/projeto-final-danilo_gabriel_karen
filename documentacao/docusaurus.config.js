@@ -21,14 +21,14 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://github.com',
+  url: 'https://EmbarcaTech-2025.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/EmbarcaTech-2025/projeto-final-danilo_gabriel_karen/',
+  baseUrl: '/projeto-final-danilo_gabriel_karen/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'https://github.com/EmbarcaTech-2025', // Usually your GitHub org/user name.
+  organizationName: 'EmbarcaTech-2025', // Usually your GitHub org/user name.
   projectName: 'projeto-final-danilo_gabriel_karen', // Usually your repo name.
   trailingSlash: false,
 
