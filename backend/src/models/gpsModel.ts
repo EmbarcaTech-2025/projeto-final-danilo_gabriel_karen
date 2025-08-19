@@ -1,40 +1,32 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../config/db';
 
-export class Session extends Model {
+export class GpsAreaSegura extends Model {
   declare id: number;
-  declare category: string;
-  declare notes?: string;
-  declare startTime: Date;
-  declare endTime?: Date;
+  declare pontos: any[];
+  declare ativo: boolean;
 }
 
-Session.init(
+GpsAreaSegura.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    category: {
-      type: DataTypes.STRING,
+    pontos: {
+      type: DataTypes.JSON,
       allowNull: false,
     },
-    notes: {
-      type: DataTypes.TEXT,
-    },
-    startTime: {
-      type: DataTypes.DATE,
+    ativo: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
-    },
-    endTime: {
-      type: DataTypes.DATE,
     }
   },
   {
     sequelize,
-    modelName: 'Session',
-    tableName: 'sessions',
+    modelName: 'Gps_Area_Segura',
+    tableName: 'gps_area_segura',
     timestamps: false
   }
 );
