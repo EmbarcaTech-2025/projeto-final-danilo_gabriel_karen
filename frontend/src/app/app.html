@@ -30,12 +30,29 @@
       </div>
 
       <nav class="py-3">
-        <a routerLink="/gps" routerLinkActive="bg-black/5" (click)="closeSidebar()" class="flex items-center gap-3 px-4 py-2 text-sm hover:bg-black/5">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0l3-3m-3 3l-3-3m3 3V9" />
-          </svg>
-          <span>GPS</span>
-        </a>
+        <!-- GPS group with accordion -->
+        <div class="px-2">
+          <button type="button" class="w-full flex items-center justify-between gap-3 px-2 py-2 text-sm hover:bg-black/5 rounded"
+                  (click)="toggleGps()">
+            <span class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0l3-3m-3 3l-3-3m3 3V9" />
+              </svg>
+              <span>GPS</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 transition-transform" [ngClass]="{ 'rotate-180': isGpsOpen() }">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+
+          <!-- Subitems -->
+          @if (isGpsOpen()) {
+            <div class="mt-1 ml-7 flex flex-col">
+              <a routerLink="/gps/localizacao-atual" routerLinkActive="bg-black/5" (click)="closeSidebar()" class="px-2 py-1.5 text-xs rounded hover:bg-black/5">Localização Atual</a>
+              <a routerLink="/gps/listar-areas-seguras" routerLinkActive="bg-black/5" (click)="closeSidebar()" class="px-2 py-1.5 text-xs rounded hover:bg-black/5">Listar áreas seguras</a>
+            </div>
+          }
+        </div>
       </nav>
 
       <div class="mt-auto px-4 py-3 border-t border-black/10 text-xs text-black/60">
@@ -44,11 +61,12 @@
     </aside>
 
     <!-- Mobile overlay -->
-    <div
-      class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
-      *ngIf="isSidebarOpen()"
-      (click)="closeSidebar()"
-    ></div>
+    @if (isSidebarOpen()) {
+      <div
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+        (click)="closeSidebar()"
+      ></div>
+    }
 
     <!-- Main content -->
     <main class="relative flex-1 min-w-0 md:ml-64 py-0 px-4 md:px-6 h-[calc(100vh-3.5rem)] overflow-hidden">

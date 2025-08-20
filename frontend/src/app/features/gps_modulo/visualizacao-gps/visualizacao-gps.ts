@@ -1,12 +1,13 @@
 import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { GpsService } from '../gps';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-visualizacao-gps',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './visualizacao-gps.html',
   styleUrl: './visualizacao-gps.css'
 })
@@ -17,6 +18,7 @@ export class VisualizacaoGps implements OnInit, AfterViewInit {
 
   // Estado de desenho da área segura
   readonly selectedPoints = signal<{ lat: number; lng: number }[]>([]);
+  readonly areaName = signal<string>('');
   private drawnMarkers: any[] = [];
   private previewLine: any | null = null;
   private safePolygon: any | null = null;
@@ -116,11 +118,18 @@ export class VisualizacaoGps implements OnInit, AfterViewInit {
 
   async saveArea(): Promise<void> {
     if (this.selectedPoints().length !== 4 || this.saving()) { return; }
+    const name = this.areaName().trim();
+    if (!name) {
+      alert('Informe um nome para a área segura.');
+      return;
+    }
     this.saving.set(true);
     try {
-      await firstValueFrom(this.gpsService.saveSafeArea(this.selectedPoints()))
+      await firstValueFrom(this.gpsService.saveSafeArea({ nome: name, pontos: this.selectedPoints() }))
       // Opcional: feedback simples
       alert('Área segura salva com sucesso.');
+      this.areaName.set('');
+      this.clearPoints();
     } catch (err) {
       console.error(err);
       alert('Falha ao salvar a área segura.');
