@@ -84,7 +84,7 @@ As imagens abaixo mostram o protótipo em funcionamento durante os testes:
 
 <p align="center">
   <img src="imagens/bpmspo2_sensor.jpg" alt="Protótipo com MAX3010x em teste" width="400"/>
-  <img src="bpmspo2.jpg" alt="Montagem estrutural do protótipo" width="400"/>
+  <img src="imagens/bpmspo2.jpg" alt="Montagem estrutural do protótipo" width="400"/>
 </p>
 
 
