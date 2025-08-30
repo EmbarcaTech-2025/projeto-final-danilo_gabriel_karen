@@ -71,5 +71,21 @@ O projeto propõe o desenvolvimento de um dispositivo IoT vestível baseado na R
 | Módulo ECG (AD8232)      | 1   | Processar os sinais de ECG captados pelos eletrodos                                      | Analisar o estado de saúde cardíaca             |
 | Eletrodos com cabos     | 3   | Captar os sinais cardíacos de sístole e diástole                                      | Captação dos sinais elétricos do coração             |
 
+---
+## 4. Prototipagem e Ajustes
+### Testes com o Sensor MAX3010x
+
+Nesta etapa foram realizados os primeiros testes com o sensor **MAX3010x**, responsável pela medição da frequência cardíaca e da saturação de oxigênio (SpO₂). O sensor **MAX3010x** foi envolvido por uma capa protetora a fim de reduzir a incidência de luz externa no experimento.
+Durante os experimentos iniciais, foi possível validar a comunicação I²C com a Raspberry Pi Pico W e capturar sinais fisiológicos básicos.  
+
+O comportamento observado indicou leituras de frequência cardíaca consistentes. Já a medição de SpO₂ apresentou melhor resposta quando o dedo foi levemente afastado do sensor, sugerindo necessidade de ajustes no posicionamento e na calibração do algoritmo de filtragem.
+
+As imagens abaixo mostram o protótipo em funcionamento durante os testes:
+
+<p align="center">
+  <img src="imagens/bpmspo2_sensor.jpg" alt="Protótipo com MAX3010x em teste" width="400"/>
+  <img src="bpmspo2.jpg" alt="Montagem estrutural do protótipo" width="400"/>
+</p>
+
 
 
