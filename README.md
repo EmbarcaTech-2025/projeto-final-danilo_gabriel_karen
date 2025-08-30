@@ -80,12 +80,13 @@ Durante os experimentos iniciais, foi possível validar a comunicação I²C com
 
 O comportamento observado indicou leituras de frequência cardíaca consistentes. Já a medição de SpO₂ apresentou melhor resposta quando o dedo foi levemente afastado do sensor, sugerindo necessidade de ajustes no posicionamento e na calibração do algoritmo de filtragem.
 
-As imagens abaixo mostram o protótipo em funcionamento durante os testes:
+As imagens abaixo mostram o protótipo montado para os testes:
 
 <p align="center">
   <img src="imagens/bpmspo2_sensor.jpg" alt="Protótipo com MAX3010x em teste" width="400"/>
   <img src="imagens/bpmspo2.jpg" alt="Montagem estrutural do protótipo" width="400"/>
 </p>
 
+No seguinte link é possível verificar o protótipo em funcionamento durante os testes:
 
-
+https://youtube.com/shorts/pUu1NJMdmvI?feature=share
