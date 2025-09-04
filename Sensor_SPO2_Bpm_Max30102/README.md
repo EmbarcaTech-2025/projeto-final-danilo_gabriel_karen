@@ -1,15 +1,23 @@
 # Sensor Oxímetro e Batimentos Cardíacos
 
-## Arquivos de driver para o módulo sensor oxímetro e batimentos cardíacos MAX30102
+### Testes com o Sensor MAX3010x
 
-Os códigos aqui incluídos foram desenvolvidos com propósitos didáticos, para uso ao longo do Curso de Capacitação em Sistemas Embarcados - Embarcatech.
+Nesta etapa foram realizados os primeiros testes com o sensor **MAX3010x**, responsável pela medição da frequência cardíaca e da saturação de oxigênio (SpO₂). O sensor **MAX3010x** foi envolvido por uma capa protetora a fim de reduzir a incidência de luz externa no experimento.
+Durante os experimentos iniciais, foi possível validar a comunicação I²C com a Raspberry Pi Pico W e capturar sinais fisiológicos básicos.  
 
-Para usar os códigos, conecte o módulo MAX30102 (OXI BAT), usando um conector JST SH de 4 fios, ao port I2C 0 da BitDogLab.
+O comportamento observado indicou leituras de frequência cardíaca consistentes. Já a medição de SpO₂ apresentou melhor resposta quando o dedo foi levemente afastado do sensor, sugerindo necessidade de ajustes no posicionamento e na calibração do algoritmo de filtragem.
 
-Os valores medidos/processados podem ser lidos via Serial Monitor.
+As imagens abaixo mostram o protótipo montado para os testes:
 
-> [!Warning]
-> Os códigos desta pasta foram feitos para operação com o módulo **MAX30102**. Portanto, pode não ser compatível com um módulo **MAX30101**.
+<p align="center">
+  <img src="imagens/bpmspo2_sensor.jpg" alt="Protótipo com MAX3010x em teste" width="400"/>
+  <img src="imagens/bpmspo2.jpg" alt="Montagem estrutural do protótipo" width="400"/>
+</p>
+
+No seguinte link é possível verificar o protótipo em funcionamento durante os testes:
+
+https://youtube.com/shorts/pUu1NJMdmvI?feature=share
+
 
 ### Os códigos:
 > `oxi_bat_sensor_raw.c`
