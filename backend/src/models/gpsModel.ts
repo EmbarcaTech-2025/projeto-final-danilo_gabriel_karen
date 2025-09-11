@@ -2,6 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../config/db';
 
 export class GpsAreaSegura extends Model {
+  declare nome: String;
   declare id: number;
   declare pontos: any[];
   declare ativo: boolean;
@@ -14,8 +15,12 @@ GpsAreaSegura.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     pontos: {
-      type: DataTypes.JSON,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     ativo: {

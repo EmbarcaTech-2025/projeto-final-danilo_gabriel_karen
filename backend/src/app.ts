@@ -2,12 +2,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+// Servidor MQTT
+import { startBroker } from './mqtt';
 
 // Rotas importadas
 import gpsAreaRoutes from './routes/gpsRoutes';
 
 const app = express();
-const port = 3000;
+const httpPort = 3000; // Express - Servidor web
+const mqttPort = 1883 // MQTT - Embarcado
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -21,8 +24,12 @@ app.get('/', (req, res) => {
 app.use('/api/gps_area_segura', gpsAreaRoutes);
 
 // Inicia o servidor
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+app.listen(httpPort, () => {
+    console.log(`Servidor rodando em http://localhost:${httpPort}`);
 });
+
+
+// Inicia o broker MQTT
+startBroker(1883)
 
 export default app;

@@ -49,18 +49,13 @@ export class ListarAreasSegurasComponent implements OnInit {
   async carregar(): Promise<void> {
     this.carregando.set(true);
     try {
-      const lista = [
-        {
-        id: '1',
-        nome: 'Área 1',
-        ativa: true
-      },
-      {
-        id: '2',
-        nome: 'Área 2',
-        ativa: false
-      }]
-      this.areas.set(lista ?? []);
+      const resposta = await this.gps.listarAreas().toPromise();
+      const lista = (resposta ?? []).map(item => ({
+        id: String(item.id),
+        nome: item.nome,
+        ativa: !!item.ativo
+      } satisfies SafeAreaDto));
+      this.areas.set(lista);
     } finally {
       this.carregando.set(false);
     }

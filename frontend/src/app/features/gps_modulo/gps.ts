@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class GpsService {
 
+  private readonly API_URL = 'http://localhost:3000/api';
+
   constructor(private http: HttpClient) { }
 
   getDadosGps(): Observable<any> {
@@ -15,19 +17,32 @@ export class GpsService {
   }
 
   saveSafeArea(payload: { nome: string; pontos: { lat: number; lng: number }[] }): Observable<any> {
-    // Substitua pela URL real do seu backend
-    return this.http.post('/api/areas-seguras', payload);
+    const body = {
+      nome: payload.nome,
+      pontos: payload.pontos.map(p => ({ latitude: p.lat, longitude: p.lng }))
+    };
+    return this.http.post(`${this.API_URL}/gps_area_segura/adicionar`, body);
   }
 
-  listarAreas(): Observable<any[]> {
-    return this.http.get<any[]>('/api/areas-seguras');
+  listarAreas(): Observable<{
+    id: number;
+    nome: string;
+    pontos: { latitude: number; longitude: number }[];
+    ativo: boolean;
+  }[]> {
+    return this.http.get<{
+      id: number;
+      nome: string;
+      pontos: { latitude: number; longitude: number }[];
+      ativo: boolean;
+    }[]>(`${this.API_URL}/gps_area_segura/listar`);
   }
 
   ativarArea(id: string): Observable<void> {
-    return this.http.put<void>(`/api/areas-seguras/${id}/ativar`, {});
+    return this.http.put<void>(`${this.API_URL}/gps_area_segura/ativar/${id}`, {});
   }
 
   apagarArea(id: string): Observable<void> {
-    return this.http.delete<void>(`/api/areas-seguras/${id}`);
+    return this.http.delete<void>(`${this.API_URL}/gps_area_segura/deletar/${id}`);
   }
 }
