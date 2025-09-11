@@ -18,7 +18,7 @@ int main() {
     gps_init();
     wifi_connect(WIFI_SSID, WIFI_PASS);
 
-    mqtt_setup("sistema-idoso", "", NULL, NULL);
+    mqtt_setup(MQTT_USUARIO, MQTT_IP_BROKER, NULL, NULL);
 
     sleep_ms(5000);
 
