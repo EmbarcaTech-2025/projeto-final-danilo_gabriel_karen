@@ -40,7 +40,9 @@ pico_sdk_init()
 # Add executable. Default name is the project name, version 0.1
 
 add_executable(hardware hardware.c
-                include/gps_modulo/gps_modulo.c)
+                include/gps_modulo/gps_modulo.c
+                include/wifi_modulo/wifi_modulo.c
+                include/mqtt_modulo/mqtt_modulo.c)
 
 pico_set_program_name(hardware "hardware")
 pico_set_program_version(hardware "0.1")
@@ -64,6 +66,9 @@ target_include_directories(hardware PRIVATE
 target_link_libraries(hardware
         FreeRTOS-Kernel-Heap4
         hardware_uart
+        pico_cyw43_arch_lwip_threadsafe_background
+        pico_lwip_mqtt
+        pico_lwip
         )
 
 pico_add_extra_outputs(hardware)
