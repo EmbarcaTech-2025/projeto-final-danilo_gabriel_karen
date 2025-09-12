@@ -2,7 +2,7 @@
 #include "pico/stdlib.h"
 #include "hardware/uart.h"
 #include <string.h>
-// Free RTOS includes
+// includes Free RTOS 
 #include "FreeRTOS.h" // Inclui as definições do FreeRTOS
 #include "task.h"   // Inclui as definições para tarefas do FreeRTOS
 
@@ -10,42 +10,34 @@
 #include "include/gps_modulo/gps_modulo.h"
 #include "include/wifi_modulo/wifi_modulo.h"
 #include "include/mqtt_modulo/mqtt_modulo.h"
+#include "include/acelerometro_modulo/acelerometro_modulo.h"
+#include "include/acelerometro_modulo/detector_queda.h"
 #include "config.h"
 
 int main() {
     stdio_init_all();
+    
     sleep_ms(2000);
-    gps_init();
-    wifi_connect(WIFI_SSID, WIFI_PASS);
 
-    mqtt_setup(MQTT_USUARIO, MQTT_IP_BROKER, NULL, NULL);
-
-    sleep_ms(5000);
-
-    char msg[100];
-    sprintf(msg, "{\"lat\":%.6f,\"lon\":%.6f}", 32, 54);
-
-    mqtt_comm_publish("usuario/gps", (uint8_t*)msg, strlen(msg));
-
-
-
-    // mqtt_comm_publish("usuario/gps", mensagem, strlen(mensagem));
-
-    printf("Aguardando localizacao valida do GPS...\n");
-
+    mpu6050_init();
+    fall_detector_init();
     
-    while (true) {
-        gps_position_t current_pos = get_gps_location();
-        
-        if (current_pos.is_valid) {
-            printf("Posicao obtida!\n");
-            printf("Latitude: %.6f\n", current_pos.latitude);
-            printf("Longitude: %.6f\n", current_pos.longitude);
+    mpu6050_data_t d;
+
+    while (1)
+    {
+        if (mpu6050_read(&d)) {
+            if (fall_detector_update(&d)) {
+                printf("QUEDA DETECTADA\n");
+                sleep_ms(2000);
+            }
         }
+        
+        sleep_ms(10);
 
-        sleep_ms(5000); 
+        printf("TESTE DE ACELERAÇÃO: %d\n", d.ax);
     }
-    
+
     return 0;
 }
 

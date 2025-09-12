@@ -17,6 +17,15 @@ export class App {
 
   // Accordion state for GPS group
   readonly isGpsOpen = signal(true);
+  
+  // Accordion state for Configurações group
+  readonly isConfiguracoesOpen = signal(false);
+  
+  // Accordion state for Informações do Paciente group
+  readonly isInformacoesPacienteOpen = signal(false);
+  
+  // Accordion state for Avisos group
+  readonly isAvisosOpen = signal(false);
 
   constructor() {}
 
@@ -30,6 +39,18 @@ export class App {
 
   toggleGps(): void {
     this.isGpsOpen.update((current) => !current);
+  }
+
+  toggleConfiguracoes(): void {
+    this.isConfiguracoesOpen.update((current) => !current);
+  }
+
+  toggleInformacoesPaciente(): void {
+    this.isInformacoesPacienteOpen.update((current) => !current);
+  }
+
+  toggleAvisos(): void {
+    this.isAvisosOpen.update((current) => !current);
   }
 
   // Accordion header now only toggles open/close via toggleGps()

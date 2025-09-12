@@ -42,7 +42,10 @@ pico_sdk_init()
 add_executable(hardware hardware.c
                 include/gps_modulo/gps_modulo.c
                 include/wifi_modulo/wifi_modulo.c
-                include/mqtt_modulo/mqtt_modulo.c)
+                include/mqtt_modulo/mqtt_modulo.c
+                include/sensor_oxi_bat_modulo/sensor_oxi_bat_modulo.c
+                include/acelerometro_modulo/acelerometro_modulo.c
+                include/acelerometro_modulo/detector_queda.c)
 
 pico_set_program_name(hardware "hardware")
 pico_set_program_version(hardware "0.1")
@@ -69,6 +72,7 @@ target_link_libraries(hardware
         pico_cyw43_arch_lwip_threadsafe_background
         pico_lwip_mqtt
         pico_lwip
+        hardware_i2c
         )
 
 pico_add_extra_outputs(hardware)
