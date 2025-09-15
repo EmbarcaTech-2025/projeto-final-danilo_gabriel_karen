@@ -1,5 +1,10 @@
 # Sistema de Monitoramento para Idosos com Raspberry Pi Pico W
 
+# Links de Apresentação
+
+[Apresentação - SeniorSafe](https://gamma.app/docs/SeniorSafe-h0csvok9kpbhzux?mode=present#card-7qxzdj1njm3w72i)
+[Apresentação Pitch](https://www.canva.com/design/DAGy_w3NZl0/cw_fORuQECJVW-HWkz4TeA/edit?utm_content=DAGy_w3NZl0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
 ## 1. Problema a ser resolvido
 
 Pessoas idosas, especialmente aquelas que vivem sozinhas ou possuem problemas de saúde, estão sujeitas a situações de risco como quedas, desorientação espacial e alterações fisiológicas graves (como baixa oxigenação no sangue ou arritmias cardiacas). Muitas dessas situações não são percebidas a tempo por familiares ou cuidadores, podendo resultar em agravamentos de saúde ou até fatalidades.  
