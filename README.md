@@ -3,6 +3,7 @@
 # Links de Apresentação
 
 [Apresentação - SeniorSafe](https://gamma.app/docs/SeniorSafe-h0csvok9kpbhzux?mode=present#card-7qxzdj1njm3w72i)
+
 [Apresentação Pitch](https://www.canva.com/design/DAGy_w3NZl0/cw_fORuQECJVW-HWkz4TeA/edit?utm_content=DAGy_w3NZl0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## 1. Problema a ser resolvido
