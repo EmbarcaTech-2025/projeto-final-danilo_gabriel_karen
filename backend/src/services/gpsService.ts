@@ -1,4 +1,5 @@
 import { GpsAreaSegura } from '../models/gpsModel';
+import { GpsUsuario } from '../models/gpsUsuarioModel'
 import { point, polygon } from '@turf/helpers';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 
@@ -121,6 +122,30 @@ export async function deletarArea(id: number) {
         throw new Error('Falha ao deletar a área.');
     }
 }
+
+
+export async function posicaoAtualUsuario(usuarioId: number) {
+    try {
+      const posicao = await GpsUsuario.findOne({
+        where: { usuarioId },
+        order: [['timestamp', 'DESC']],
+      });
+  
+      if (!posicao) {
+        throw new Error('Posição do usuário não encontrada.');
+      }
+  
+      return {
+        usuarioId: posicao.usuarioId,
+        latitude: posicao.latitude,
+        longitude: posicao.longitude,
+        timestamp: posicao.timestamp,
+      };
+    } catch (error) {
+      console.error('Erro ao buscar posição do usuário:', error);
+      throw new Error('Falha ao buscar a posição do usuário.');
+    }
+  }
 
 
 

@@ -6,35 +6,7 @@ import { GpsService } from '../gps';
   selector: 'app-localizacao-atual',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="absolute inset-0 overflow-hidden">
-      <div id="map-realtime" class="h-full w-full"></div>
-      
-      <div class="pointer-events-none absolute top-4 right-4 flex flex-col gap-2 z-999">
-        <div class="pointer-events-auto bg-white/90 backdrop-blur border border-black/10 shadow-lg rounded-md px-3 py-2 text-xs text-black">
-          <div class="font-medium mb-1">Localização Atual</div>
-          <div class="text-xs text-black/70">
-            @if (currentLocation()) {
-              <div>Lat: {{ currentLocation()?.lat | number:'1.6-6' }}</div>
-              <div>Lng: {{ currentLocation()?.lng | number:'1.6-6' }}</div>
-              <div class="text-green-600">● Ativo</div>
-            } @else {
-              <div class="text-red-600">● Inativo</div>
-            }
-          </div>
-        </div>
-        
-        <div class="pointer-events-auto bg-white/90 backdrop-blur border border-black/10 shadow-lg rounded-md p-2 flex items-center gap-2">
-          <button class="px-2 py-1 text-xs rounded border border-black/20 hover:bg-black/5" (click)="toggleTracking()">
-            {{ isTracking() ? 'Parar' : 'Iniciar' }} Rastreamento
-          </button>
-          <button class="px-2 py-1 text-xs rounded border border-black/20 hover:bg-black/5" (click)="centerOnLocation()">
-            Centralizar
-          </button>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './localizacao-atual.html',
   styleUrl: './localizacao-atual.css'
 })
 export class LocalizacaoAtualComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -42,9 +14,11 @@ export class LocalizacaoAtualComponent implements OnInit, AfterViewInit, OnDestr
   private L!: any;
   private locationMarker: any;
   private trackingInterval: any;
-  
+
   readonly currentLocation = signal<{ lat: number; lng: number } | null>(null);
   readonly isTracking = signal(false);
+
+  private usuarioId = 123; // ID fixo (pode vir via input ou rota)
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -52,8 +26,7 @@ export class LocalizacaoAtualComponent implements OnInit, AfterViewInit, OnDestr
   ) {}
 
   ngOnInit(): void {
-    // Inicializar rastreamento se disponível
-    if (isPlatformBrowser(this.platformId) && 'geolocation' in navigator) {
+    if (isPlatformBrowser(this.platformId)) {
       this.startTracking();
     }
   }
@@ -78,10 +51,9 @@ export class LocalizacaoAtualComponent implements OnInit, AfterViewInit, OnDestr
     });
 
     L.tileLayer(baseMapUrl, {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    // Criar marcador de localização
     this.locationMarker = L.marker([0, 0], {
       icon: L.divIcon({
         className: 'custom-marker',
@@ -92,32 +64,21 @@ export class LocalizacaoAtualComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   startTracking(): void {
-    if (!isPlatformBrowser(this.platformId) || !('geolocation' in navigator)) {
-      alert('Geolocalização não disponível neste dispositivo.');
-      return;
-    }
-
     this.isTracking.set(true);
-    
-    // Obter posição inicial
-    navigator.geolocation.getCurrentPosition(
-      (position) => this.updateLocation(position),
-      (error) => console.error('Erro ao obter localização:', error),
-      { enableHighAccuracy: true }
-    );
 
-    // Monitorar mudanças de posição
-    this.trackingInterval = navigator.geolocation.watchPosition(
-      (position) => this.updateLocation(position),
-      (error) => console.error('Erro ao monitorar localização:', error),
-      { enableHighAccuracy: true, maximumAge: 30000, timeout: 27000 }
-    );
+    // Busca inicial
+    this.fetchAndUpdateLocation();
+
+    // Atualiza a cada 5 segundos
+    this.trackingInterval = setInterval(() => {
+      this.fetchAndUpdateLocation();
+    }, 5000);
   }
 
   stopTracking(): void {
     this.isTracking.set(false);
     if (this.trackingInterval) {
-      navigator.geolocation.clearWatch(this.trackingInterval);
+      clearInterval(this.trackingInterval);
       this.trackingInterval = null;
     }
   }
@@ -130,16 +91,22 @@ export class LocalizacaoAtualComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
 
-  private updateLocation(position: GeolocationPosition): void {
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
-    
+  private async fetchAndUpdateLocation() {
+    try {
+      const posicao = await this.gpsService.getPosicao(this.usuarioId);
+      this.updateLocation(posicao.latitude, posicao.longitude);
+    } catch (error) {
+      console.error('Erro ao buscar posição:', error);
+    }
+  }
+
+  private updateLocation(lat: number, lng: number): void {
     this.currentLocation.set({ lat, lng });
-    
+
     if (this.locationMarker && this.map) {
       const latlng = this.L.latLng(lat, lng);
       this.locationMarker.setLatLng(latlng);
-      
+
       if (!this.map.hasLayer(this.locationMarker)) {
         this.locationMarker.addTo(this.map);
       }

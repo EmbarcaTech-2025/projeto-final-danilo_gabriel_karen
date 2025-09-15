@@ -90,16 +90,19 @@ gps_position_t get_gps_location() {
     char nmea_buffer[MAX_NMEA_LEN];
     int buffer_index = 0;
     gps_position_t position = {0};
+    printf("Parou aqui: 1\n");
 
     while (true) {
         if (uart_is_readable(GPS_UART_ID)) {
             char c = uart_getc(GPS_UART_ID);
+
+            // printf("Parou aqui: 2\n");
             
             if (c == '\n' || c == '\r') {
                 if (buffer_index > 0) {
                     nmea_buffer[buffer_index] = '\0';
                     parse_gpgga(nmea_buffer, &position);
-                    
+                    // printf("Parou aqui: 3\n");
                     if (position.is_valid) {
                         return position;
                     }
@@ -107,7 +110,11 @@ gps_position_t get_gps_location() {
                 }
             } else if (buffer_index < MAX_NMEA_LEN - 1) {
                 nmea_buffer[buffer_index++] = c;
+                // printf("Parou aqui: Especial\n");
             }
+            // printf("Parou aqui: 4\n");
         }
+        // printf("Parou aqui: 5\n");
     }
+    // printf("Parou aqui: 6\n");
 }

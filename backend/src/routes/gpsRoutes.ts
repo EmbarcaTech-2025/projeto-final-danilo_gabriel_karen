@@ -5,7 +5,9 @@ import {
     verificarAreaSeguraController,
     atualizarAreaAtivaController,
     deletarAreaController,
-    listarAreasController
+    listarAreasController,
+    posicaoAtualUsuarioController
+
 } from '../controllers/gpsController'; 
 
 const router = Router();
@@ -23,5 +25,7 @@ router.put('/ativar/:id', atualizarAreaAtivaController);
 router.delete('/deletar/:id', deletarAreaController);
 
 router.get('/listar', listarAreasController);
+
+router.get('/posicao/:id', posicaoAtualUsuarioController)
 
 export default router;

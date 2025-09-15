@@ -100,3 +100,27 @@ export async function listarAreasController(req: Request, res: Response) {
         res.status(500).json({ message: "Erro interno no servidor.", error: error.message });
     }
 }
+
+export async function posicaoAtualUsuarioController(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+  
+      if (!id) {
+        return res.status(400).json({ message: "ID do usuário é obrigatório." });
+      }
+  
+      const posicao = await gpsAreaService.posicaoAtualUsuario(Number(id));
+  
+      if (!posicao) {
+        return res.status(404).json({ message: "Posição do usuário não encontrada." });
+      }
+  
+      res.status(200).json(posicao);
+    } catch (error: any) {
+      res.status(500).json({ 
+        message: "Erro interno no servidor.", 
+        error: error.message 
+      });
+    }
+  }
+

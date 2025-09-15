@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { firstValueFrom } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,5 +46,13 @@ export class GpsService {
 
   apagarArea(id: string): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/gps_area_segura/deletar/${id}`);
+  }
+
+  async getPosicao(usuarioId: number): Promise<{ latitude: number; longitude: number; timestamp: string }> {
+    return await firstValueFrom(
+      this.http.get<{ latitude: number; longitude: number; timestamp: string }>(
+        `${this.API_URL}/gps_area_segura/posicao/${usuarioId}`
+      )
+    )
   }
 }
