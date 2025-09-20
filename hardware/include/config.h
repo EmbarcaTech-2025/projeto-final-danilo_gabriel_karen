@@ -17,7 +17,6 @@
 #define ACELEROMETRO_SCL 1
 #define ACELEROMETRO_PORT i2c0
 #define ACELEROMETRO_BAUDRATE 400000
-
 // Configuração de WIFI
 #define WIFI_SSID "VIVOFIBRA-WIFI6-A2F1"
 #define WIFI_PASS "QT3HRPiPAdx5aaL"
@@ -30,5 +29,10 @@
 #define ID_USUARIO 123
 // Rotas MQTT
 #define GPS_ROUTE "usuario/gps"
-
+// Display Oled
+#define OLED_W              128
+#define OLED_H              64
+#define FS_HZ               100
+#define WINDOW_SAMPLES      300
+#define LOG_PERIOD_MS       120
 #endif // CONFIG_H

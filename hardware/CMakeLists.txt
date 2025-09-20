@@ -45,7 +45,9 @@ add_executable(hardware hardware.c
                 include/mqtt_modulo/mqtt_modulo.c
                 include/sensor_oxi_bat_modulo/sensor_oxi_bat_modulo.c
                 include/acelerometro_modulo/acelerometro_modulo.c
-                include/acelerometro_modulo/detector_queda.c)
+                include/acelerometro_modulo/detector_queda.c
+                include/buzzer_modulo/buzzer_modulo.c
+                include/display_modulo/ssd1306.c)
 
 pico_set_program_name(hardware "hardware")
 pico_set_program_version(hardware "0.1")
@@ -73,6 +75,7 @@ target_link_libraries(hardware
         pico_lwip_mqtt
         pico_lwip
         hardware_i2c
+        hardware_pwm
         )
 
 pico_add_extra_outputs(hardware)
